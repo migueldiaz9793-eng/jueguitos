@@ -8,6 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Ordenar archivos en carpetas
+        run: |
+          mkdir -p www scripts
+          if [ -f index.html ]; then mv index.html www/index.html; fi
+          for f in prepare-web.js android-patch.sh make_icons.py ios-patch.py; do
+            if [ -f "$f" ]; then mv "$f" scripts/; fi
+          done
+          ls -R www scripts
       - uses: actions/setup-node@v4
         with:
           node-version: 20
